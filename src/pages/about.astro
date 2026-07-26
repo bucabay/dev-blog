@@ -1,0 +1,45 @@
+---
+import SocialList from "@/components/SocialList.astro";
+import PageLayout from "@/layouts/Base.astro";
+
+const meta = {
+	description: "A little about Gabe — developer, tinkerer, and author of this blog.",
+	title: "About",
+};
+---
+
+<PageLayout meta={meta}>
+	<h1 class="title mb-12">About</h1>
+	<div class="prose prose-sm prose-cactus max-w-none">
+		<p>
+			I’m Gabe — a developer who has spent a long time shipping things on the web. I like small,
+			sharp tools, systems that stay boring under load, and code you can still read six months
+			later.
+		</p>
+
+		<h2>What I work with</h2>
+		<ul class="list-inside list-disc" role="list">
+			<li>TypeScript and Node, mostly on the backend</li>
+			<li>Astro, React, and plain old HTML when it will do the job</li>
+			<li>Cloudflare Workers, D1, Durable Objects, and the edge in general</li>
+			<li>Postgres, SQLite, and the occasional queue</li>
+			<li>Whatever the problem actually needs, rather than what’s trending</li>
+		</ul>
+
+		<h2>Why this blog exists</h2>
+		<p>
+			Most of what I know came from someone else taking the time to write it down. This is my
+			attempt at paying that back: debugging stories, architecture notes, benchmarks, and the small
+			details that never make it into the official docs.
+		</p>
+		<p>
+			Everything here comes out of things I actually built and broke. If a post saves you an
+			afternoon, that’s the whole point.
+		</p>
+
+		<h2>Elsewhere</h2>
+	</div>
+	<div class="mt-6">
+		<SocialList />
+	</div>
+</PageLayout>
