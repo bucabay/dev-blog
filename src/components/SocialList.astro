@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { withBase } from "@/utils/url";
 
 /** 
 	Uses https://www.astroicon.dev/getting-started/
@@ -19,7 +20,7 @@ const socialLinks: {
 	},
 	{
 		friendlyName: "RSS",
-		link: "/rss.xml",
+		link: withBase("/rss.xml"),
 		name: "mdi:rss",
 	},
 	{

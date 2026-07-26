@@ -55,19 +55,40 @@ element — useful for eyeballing styles after a dependency bump.
 - `astro.config.ts` — integrations, manifest, Markdown pipeline
 - `public/icon.svg` — favicon and app-icon source
 
-**Before deploying:** set `url` in `src/site.config.ts` to the real domain. It drives the
-sitemap, RSS feeds, canonical URLs, and OG image paths. Currently
-`https://blog.fijiwebdesign.com/`.
-
 Optional webmentions: copy `.example.env` to `.env` and fill in the
 [webmention.io](https://webmention.io) values.
 
+### Base path
+
+GitHub Pages serves this project site under `/dev-blog/`, so `astro.config.ts` sets
+`base: "/dev-blog"` and `site` carries the same prefix. Both are overridable by env var
+(`BASE_PATH`, `SITE_URL`) — the deploy workflow feeds them from the live Pages config, so
+adding a custom domain needs no code change.
+
+Astro applies `base` to bundled assets and to URLs it generates, but **not** to hrefs
+written by hand. Wrap those in `withBase()` from `src/utils/url.ts`:
+
+```astro
+---
+import { withBase } from "@/utils/url";
+---
+
+<a href={withBase("/posts/")}>Posts</a>
+```
+
+Markdown content can't call that helper — use relative links (`../other-post/`) inside
+posts, not absolute ones.
+
 ## Deploying
 
-Any static host works — the build output is plain files in `dist/`.
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the site and
+publishes it to GitHub Pages at <https://bucabay.github.io/dev-blog/>.
+
+The output is plain static files, so any host works:
 
 ```bash
-pnpm build
+pnpm build          # -> dist/
+BASE_PATH=/ SITE_URL=https://example.com/ pnpm build   # for a domain root
 ```
 
 ## License

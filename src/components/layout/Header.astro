@@ -2,6 +2,7 @@
 import Search from "@/components/Search.astro";
 import ThemeToggle from "@/components/ThemeToggle.astro";
 import { menuLinks } from "@/site.config";
+import { withBase } from "@/utils/url";
 import { siteConfig } from "../../site.config";
 ---
 
@@ -11,9 +12,9 @@ import { siteConfig } from "../../site.config";
 >
 	<div class="flex sm:flex-col sm:items-start">
 		<a
-			aria-current={Astro.url.pathname === "/" ? "page" : false}
+			aria-current={Astro.url.pathname === withBase("/") ? "page" : false}
 			class="inline-flex items-center sm:relative sm:inline-block sm:grayscale sm:hover:filter-none"
-			href="/"
+			href={withBase("/")}
 		>
 			{
 				siteConfig.showLogo && (
@@ -50,9 +51,9 @@ import { siteConfig } from "../../site.config";
 			{
 				menuLinks.map((link) => (
 					<a
-						aria-current={Astro.url.pathname === link.path ? "page" : false}
+						aria-current={Astro.url.pathname === withBase(link.path) ? "page" : false}
 						class="text-accent px-2 py-4 font-semibold sm:px-4 sm:py-0 sm:underline-offset-2 sm:hover:underline"
-						href={link.path}
+						href={withBase(link.path)}
 					>
 						{link.title}
 					</a>

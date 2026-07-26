@@ -19,9 +19,20 @@ import {
 } from "./src/plugins/satteri";
 import { expressiveCodeOptions, siteConfig } from "./src/site.config";
 
+/*
+	Deploy target. GitHub Pages serves this project site under /<repo>/, so both the
+	site URL and `base` carry that prefix. When moving to a domain root, set
+	SITE_URL=https://example.com/ and BASE_PATH=/ (or edit the defaults here).
+*/
+const site = process.env.SITE_URL || siteConfig.url;
+// A custom domain serves from the root, where actions/configure-pages reports an
+// empty base_path — normalise that to "/".
+const base = (process.env.BASE_PATH ?? "/dev-blog") || "/";
+
 // https://astro.build/config
 export default defineConfig({
-	site: siteConfig.url,
+	site,
+	base,
 	image: {
 		domains: ["webmention.io"],
 	},
@@ -54,7 +65,7 @@ export default defineConfig({
 					type: "image/png",
 				},
 			],
-			start_url: "/",
+			start_url: base,
 			background_color: "#1d1f21",
 			theme_color: "#2bbc8a",
 			display: "standalone",
